@@ -21,6 +21,7 @@ import pptx_template.pptx_util as util
 
 log = logging.getLogger()
 
+
 def _nan_to_none(x):
     # log.debug(u" type of x:%s is:%s" % (x, type(x)))
     if isinstance(x, np.generic):
@@ -33,8 +34,10 @@ def _nan_to_none(x):
         result = x
     return result
 
+
 def _to_unicode(s):
-    return s if isinstance(s, type(u"a")) else unicode(s,'utf-8')
+    return s if isinstance(s, type(u"a")) else unicode(s, 'utf-8')
+
 
 def _build_xy_chart_data(csv):
     chart_data = XyChartData()
@@ -47,9 +50,10 @@ def _build_xy_chart_data(csv):
             series.add_data_point(x, y)
     return chart_data
 
+
 def _build_chart_data(csv):
     chart_data = ChartData()
-    categories = [_nan_to_none(x) or '' for x in csv.iloc[:,0].values]
+    categories = [_nan_to_none(x) or '' for x in csv.iloc[:, 0].values]
     log.debug(u" Setting categories with values:%s" % categories)
     chart_data.categories = categories
 
@@ -61,15 +65,19 @@ def _build_chart_data(csv):
         chart_data.add_series(name, values)
     return chart_data
 
+
 def _is_xy_chart(chart):
-    xy_charts = [ct.XY_SCATTER_LINES, ct.XY_SCATTER_LINES_NO_MARKERS, ct.XY_SCATTER, ct.XY_SCATTER_SMOOTH, ct.XY_SCATTER_SMOOTH_NO_MARKERS]
+    xy_charts = [ct.XY_SCATTER_LINES, ct.XY_SCATTER_LINES_NO_MARKERS, ct.XY_SCATTER, ct.XY_SCATTER_SMOOTH,
+                 ct.XY_SCATTER_SMOOTH_NO_MARKERS]
     return chart.chart_type in xy_charts
+
 
 def _set_value_axis(chart, chart_id, chart_setting):
     max = chart_setting.get('value_axis_max')
     min = chart_setting.get('value_axis_min')
     if max or min:
-        util.set_value_axis(chart, max = max, min = min)
+        util.set_value_axis(chart, max=max, min=min)
+
 
 def _load_csv_into_dataframe(chart_id, chart_setting):
     if 'body' in chart_setting:
@@ -91,6 +99,7 @@ def _load_csv_into_dataframe(chart_id, chart_setting):
         log.debug(u" Loading from csv file: %s" % csv_file_name)
         delimiter = '\t' if csv_file_name.endswith('.tsv') else ','
         return pd.read_csv(csv_file_name, delimiter=delimiter, index_col=False)
+
 
 def _replace_chart_data_with_csv(chart, chart_id, chart_setting):
     """
@@ -130,5 +139,6 @@ def load_data_into_chart(chart, model):
     _replace_chart_data_with_csv(chart, chart_id, chart_setting)
     _set_value_axis(chart, chart_id, chart_setting)
 
+
 def select_all_chart_shapes(slide):
-    return [ s.chart for s in slide.shapes if isinstance(s, GraphicFrame) and s.shape_type == 3 ]
+    return [s.chart for s in slide.shapes if isinstance(s, GraphicFrame) and s.shape_type == 3]

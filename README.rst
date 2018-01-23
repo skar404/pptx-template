@@ -1,5 +1,7 @@
-pptx-template .. image:: https://travis-ci.org/m3dev/pptx-template.svg?branch=master
+pptx-template
+.. image:: https://travis-ci.org/m3dev/pptx-template.svg?branch=master
     :target: https://travis-ci.org/m3dev/pptx-template
+
 ============
 
 pptx-template is a PowerPoint presentation builder.

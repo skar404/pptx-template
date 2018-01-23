@@ -14,6 +14,7 @@
 # ==> [('foo.bar','Hello'), ('list.0', 0), ('list.1', 1)]
 #
 
+
 def eval_el(el, model):
     """
         el で示された値を model の中から取り出す。見つからない場合は ValueError 例外となる
@@ -36,7 +37,7 @@ def eval_el(el, model):
 
         if isinstance(context, dict):
             if not part in context:
-                raise ValueError("%s: %s key not found in model: %s" %(el, part, context))
+                raise ValueError("%s: %s key not found in model: %s" % (el, part, context))
 
             context = context[part]
             continue
@@ -46,25 +47,27 @@ def eval_el(el, model):
 
     return context
 
+
 def _flatten(list):
     return [item for sublist in list for item in sublist]
+
 
 def _build_el_recursive(obj, path):
     delimiter = '' if path == '' else '.'
     result = []
     if isinstance(obj, list):
-        return _flatten([ _build_el_recursive(obj[i], "%s%s%d" % (path, delimiter, i)) for i in range(len(obj)) ])
+        return _flatten([_build_el_recursive(obj[i], "%s%s%d" % (path, delimiter, i)) for i in range(len(obj))])
     elif isinstance(obj, dict):
-        return _flatten([ _build_el_recursive(obj[k], "%s%s%s" % (path, delimiter, k)) for k in obj.keys() ])
+        return _flatten([_build_el_recursive(obj[k], "%s%s%s" % (path, delimiter, k)) for k in obj.keys()])
     else:
-        return [ (path, obj) ]
+        return [(path, obj)]
+
 
 def build_el(obj):
     """
     obj の中に含まれるすべての値を (el, 値) の tuple の配列に展開する
     """
     return _build_el_recursive(obj, '')
-
 
 
 def set_value(model, el, value):
@@ -82,7 +85,7 @@ def set_value(model, el, value):
         for i in range(0, len(parts)):
             if not parts[i]:
                 raise ValueError(u"EL %s should not include empty part" % el)
-            yield (parts[i], parts[i+1] if (i+1) < len(parts) else None)
+            yield (parts[i], parts[i + 1] if (i + 1) < len(parts) else None)
 
     for part, child in gen_part(el.split('.')):
         path = "%s.%s" % (path, part)

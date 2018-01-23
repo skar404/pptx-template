@@ -13,7 +13,8 @@ import pptx_template.chart as ch
 
 log = logging.getLogger()
 
-def edit_slide(slide, model, skip_model_not_found = False):
+
+def edit_slide(slide, model, skip_model_not_found=False):
     """
         1つのスライドに対して文字列置換およびチャートCSV設定を行う
         チャート設定や文字列置換は1スライドに対して複数持てる。配列やdictなどで引渡し、pptxからはEL式で特定する
@@ -65,6 +66,7 @@ def remove_slide_id(presentation, slide_id):
     for shape in txt.select_all_text_shapes(slide):
         if txt.extract_slide_id(shape.text) == slide_id:
             shape.text = ''
+
 
 def remove_all_slides_having_id(presentation):
     """
