@@ -14,6 +14,7 @@ handler = logging.StreamHandler()
 handler.setLevel(logging.DEBUG)
 log.addHandler(handler)
 
+
 class MyTest(unittest.TestCase):
     def tearDown(self):
         os.chdir(BASE_DIR)
@@ -25,7 +26,8 @@ class MyTest(unittest.TestCase):
 
     def test_skip_model_not_found(self):
         os.chdir(os.path.join(BASE_DIR, 'test', 'data'))
-        sys.argv = ['myprog', '--out', 'out.pptx', '--template', 'in.pptx', '--model', 'model-error.json', '--debug', '--skip-model-not-found']
+        sys.argv = ['myprog', '--out', 'out.pptx', '--template', 'in.pptx', '--model', 'model-error.json', '--debug',
+                    '--skip-model-not-found']
         main()
 
     def test_not_skip_model_not_found(self):
@@ -42,6 +44,7 @@ class MyTest(unittest.TestCase):
         os.chdir(os.path.join(BASE_DIR, 'test', 'data2'))
         sys.argv = ['myprog', '--out', 'out.pptx', '--template', 'in.pptx', '--model', 'in.xlsx', '--debug']
         main()
+
 
 if __name__ == '__main__':
     unittest.main()

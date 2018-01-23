@@ -2,19 +2,13 @@
 # coding=utf-8
 
 import sys
-import codecs
 import logging
 import argparse
 import json
-import shutil
-import os
-import tempfile
 
-import openpyxl as xl
 from io import open, TextIOWrapper
 from pptx import Presentation
 from six import iteritems
-from itertools import islice
 
 from pptx_template.core import edit_slide, remove_slide, get_slide, remove_slide_id, remove_all_slides_having_id
 from pptx_template.xlsx_model import generate_whole_model

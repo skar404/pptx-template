@@ -1,20 +1,14 @@
 # generate_model files
 # coding=utf-8
 
-import sys
-import codecs
-import logging
-import argparse
-import json
-
 import re
+import logging
 from io import open, StringIO
 
 import openpyxl as xl
-from six import iteritems, moves
+from six import moves
 from itertools import islice
 
-from six import string_types
 import numbers
 
 import pptx_template.pyel as pyel

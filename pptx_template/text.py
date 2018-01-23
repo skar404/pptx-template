@@ -6,11 +6,9 @@ import re
 import numbers
 
 from six import string_types
+from pptx.shapes.graphfrm import GraphicFrame
 
 import pptx_template.pyel as pyel
-
-from pptx.shapes.graphfrm import GraphicFrame
-from pptx.shapes.table import Table
 
 log = logging.getLogger()
 
@@ -108,7 +106,7 @@ def replace_all_els_in_text_frame(text_frame, model):
         if not replace_el_in_text_frame_with_str(text_frame, el, replacing_text):
             log.error(
                 u"Cannot find {%s} in one text-run. To fix this, select this whole EL [%s] and reset font size by clicking size up then down" % (
-                text_id, text_frame.text))
+                    text_id, text_frame.text))
 
 
 def _find_el_position(texts, el):

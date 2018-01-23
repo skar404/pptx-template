@@ -1,10 +1,6 @@
 # core.py - public API
 # coding=utf-8
 
-from pptx import Presentation
-
-import sys
-import codecs
 import logging
 
 import pptx_template.pptx_util as util
