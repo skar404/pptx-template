@@ -48,13 +48,12 @@ def eval_el(el, model):
     return context
 
 
-def _flatten(list):
-    return [item for sublist in list for item in sublist]
+def _flatten(list_):
+    return [item for sublist in list_ for item in sublist]
 
 
 def _build_el_recursive(obj, path):
     delimiter = '' if path == '' else '.'
-    result = []
     if isinstance(obj, list):
         return _flatten([_build_el_recursive(obj[i], "%s%s%d" % (path, delimiter, i)) for i in range(len(obj))])
     elif isinstance(obj, dict):
@@ -92,17 +91,17 @@ def set_value(model, el, value):
 
         index = int(part) if part.isdigit() else part
 
-        if child == None:
+        if child is None:
             context[index] = value
             break
 
         if child.isdigit():
             if index not in context:
-                context[index] = [None for i in range(0, int(child) + 1)]
+                context[index] = [None for _ in range(0, int(child) + 1)]
             elif not isinstance(context[index], list):
                 raise ValueError("context not match: %s" % path)
             elif int(child) >= len(context[index]):
-                context[index].extend([None for i in range(len(context[index]), int(child) + 1)])
+                context[index].extend([None for _ in range(len(context[index]), int(child) + 1)])
         else:
             if index not in context:
                 context[index] = {}

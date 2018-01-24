@@ -3,7 +3,7 @@
 
 import re
 import logging
-from io import open, StringIO
+from io import StringIO
 
 import openpyxl as xl
 from six import moves
@@ -28,7 +28,6 @@ def _build_tsv(rect_list, side_by_side=False, transpose=False, format_cell=False
         for row_index, row in enumerate(rect):
             line = []
             for cell in row:
-                value = cell
                 if not cell:
                     value = None
                 elif hasattr(cell, 'value'):
@@ -52,7 +51,7 @@ def _write_tsv(tsv, list_of_list):
         for col, value in enumerate(row):
             if col != 0:
                 tsv.write(u"\t")
-            if value != None:
+            if value is not None:
                 tsv.write(u"%s" % value)
             else:
                 tsv.write('')
@@ -72,19 +71,19 @@ def _format_cell_value(cell):
       other -> 123.4567     # numeric type
     """
     value, unit = cell.value, ''
-    format = cell.number_format if cell.number_format else ''
+    format_ = cell.number_format if cell.number_format else ''
 
     if not isinstance(value, numbers.Number):
         return value
 
-    if '%' in format:
+    if '%' in format_:
         value, unit = value * 100, '%'
 
-    match = FRACTIONAL_PART_RE.search(format)
+    match = FRACTIONAL_PART_RE.search(format_)
     if match:
         fraction_format = "%%.%df%%s" % len(match.group(1))
         return fraction_format % (value, unit)
-    elif '0' in format:
+    elif '0' in format_:
         return "%d%s" % (value, unit)
     else:
         return value
@@ -92,9 +91,8 @@ def _format_cell_value(cell):
 
 def _extract_row(slides, xls, slide_id, el, value_cell, range_name, options):
     log.debug(" loading from xlsx: slide_id:%s EL:%s value:%s range:%s options:%s" % (
-    slide_id, el, value_cell.value, range_name, options))
+        slide_id, el, value_cell.value, range_name, options))
 
-    model_value = None
     if value_cell.value:
         model_value = _format_cell_value(value_cell)
     elif range_name:
@@ -148,4 +146,4 @@ def build_model_sheet_rows(xls_filename):
     model_sheet_data = xls['model']
     model_sheet_formula = xls_formula['model']
     rows = zip(model_sheet_data.rows, model_sheet_formula.rows)
-    return (xls, xls_formula, rows)
+    return xls, xls_formula, rows
