@@ -1,4 +1,4 @@
-# pptx-template [![Build Status](https://travis-ci.org/skar404/pptx-template.svg?branch=master)](https://travis-ci.org/skar404/pptx-template)
+# pptx-template [![Build Status](https://travis-ci.org/skar404/pptx-template.svg?branch=master)](https://travis-ci.org/skar404/pptx-template) ![coverage](https://coveralls.io/repos/github/skar404/pptx-template/badge.svg?branch=master)
 
 ## Overview
 
