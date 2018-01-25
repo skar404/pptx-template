@@ -7,7 +7,7 @@ from pptx import Presentation
 from pptx_template.cli import process_all_slides
 
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.getcwd()
 
 FORMAT = '%(filename)s[%(lineno)-3d] %(levelname)-2s [%(asctime)s]  %(message)s'
 logging.basicConfig(format=FORMAT)
@@ -18,6 +18,9 @@ log.addHandler(handler)
 
 
 class MyTest(unittest.TestCase):
+    def tearDown(self):
+        os.chdir(BASE_DIR)
+
     def test_create_table(self):
         ppt = Presentation(BASE_DIR + '/data3/in.pptx')
         process_all_slides({
@@ -31,5 +34,4 @@ class MyTest(unittest.TestCase):
 
 if __name__ == '__main__':
     from .test_cli import *
-
     unittest.main()

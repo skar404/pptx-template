@@ -1,7 +1,7 @@
 pptx-template
 
-.. image:: https://travis-ci.org/m3dev/pptx-template.svg?branch=master
-    :target: https://travis-ci.org/m3dev/pptx-template
+.. image:: https://travis-ci.org/skar404/pptx-template.svg?branch=master
+    :target: https://travis-ci.org/skar404/pptx-template
 
 ============
 
@@ -15,7 +15,7 @@ This helps your routine reporting work that have many manual copy-paste from exc
   - requires python envirionment (2 or 3), pandas, python-pptx
   - for now, only UTF-8 encoding is supported for json, csv
 
-For further information, please visit GitHub: https://github.com/m3dev/pptx-template
+For further information, please visit GitHub: https://github.com/skar404/pptx-template
 
 changelogs
 ==========
