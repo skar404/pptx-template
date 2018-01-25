@@ -56,11 +56,10 @@ ppt.save('out.pptx')
 
 ### CLI: 
 
-```
-$ pip install pptx-template-fork
-$ echo '{ "slides": [ { "greeting" : "Hello!!" } ] }' > model.json
+```bash
+echo '{ "slides": [ { "greeting" : "Hello!!" } ] }' > model.json
 
 # prepare your template file (test.pptx) which contains "{greeting}" in somewhere
 
-$ pptx-template --out out.pptx --template test.pptx --model model.json
+pptx-template --out out.pptx --template test.pptx --model model.json
 ```

@@ -11,6 +11,7 @@ script:
 - pytest
 notifications:
   email: true
+
 jobs:
   include:
     - stage: deploy
@@ -24,4 +25,3 @@ jobs:
           distributions: sdist bdist_wheel
           repo: skar404/pptx-template
           tags: true
-          branch: master
