@@ -59,7 +59,6 @@ def replace_all_els_in_table(table, model, skip_model_not_found, clear_tags):
     """
 
     for cell in [cell for row in table.rows for cell in row.cells]:
-        print('> ', cell.text_frame.text)
         replace_all_els_in_text_frame(cell.text_frame, model, clear_tags)
 
 
