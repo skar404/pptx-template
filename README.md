@@ -30,10 +30,34 @@ pptx-template は pptx のテンプレートを元に、別途用意した JSON 
 
 ## Getting started
 
-TBD
+```bash
+pip install pptx-template-fork
+```
+
+### Python: 
+```python
+from pptx import Presentation
+from pptx_template.cli import process_all_slides
+
+ppt = Presentation('in.pptx')
+process_all_slides({
+        "0": "remove",
+        "1": {
+            "greeting": {
+                "en": "Hello!",
+                "ja": "こんにちは！"
+            },
+            "season": ["Spring", "Summer", "Autumn", "Winter"]
+        },
+}, ppt, True)
+ppt.save('out.pptx')
+```
+
+
+### CLI: 
 
 ```
-$ pip install pptx-template
+$ pip install pptx-template-fork
 $ echo '{ "slides": [ { "greeting" : "Hello!!" } ] }' > model.json
 
 # prepare your template file (test.pptx) which contains "{greeting}" in somewhere
