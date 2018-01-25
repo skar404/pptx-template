@@ -23,3 +23,5 @@ jobs:
         on:
           distributions: sdist bdist_wheel
           repo: skar404/pptx-template
+          tags: true
+          branch: master
