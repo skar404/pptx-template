@@ -24,7 +24,7 @@ def remove_slide(presentation, slide):
     """
      presentation から 指定した slide を削除する
     """
-    id = [(i, s.rId) for i, s in enumerate(presentation.slides._sldIdLst) if s.id == slide.slide_id][0]
-    log.debug(u"removing slide #%d %s (rel_id: %s)" % (id[0], slide.slide_id, id[1]))
-    presentation.part.drop_rel(id[1])
-    del presentation.slides._sldIdLst[id[0]]
+    id_ = [(i, s.rId) for i, s in enumerate(presentation.slides._sldIdLst) if s.id == slide.slide_id][0]
+    log.debug(u"removing slide #%d %s (rel_id: %s)" % (id_[0], slide.slide_id, id_[1]))
+    presentation.part.drop_rel(id_[1])
+    del presentation.slides._sldIdLst[id_[0]]

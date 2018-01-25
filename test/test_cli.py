@@ -9,6 +9,8 @@ from pptx_template.cli import main
 
 BASE_DIR = os.getcwd()
 
+FORMAT = '%(filename)s[%(lineno)-3d] %(levelname)-2s [%(asctime)s]  %(message)s'
+logging.basicConfig(format=FORMAT)
 log = logging.getLogger()
 handler = logging.StreamHandler()
 handler.setLevel(logging.DEBUG)

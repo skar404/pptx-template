@@ -15,24 +15,24 @@ from pptx_template.xlsx_model import generate_whole_model
 from pptx_template import __version__
 
 
-def process_one_slide(ppt, slide, model, skip_model_not_found=False):
+def process_one_slide(ppt, slide, model, skip_model_not_found=False, clear_tags=False):
     if model == u"remove":
         remove_slide(ppt, slide)
     else:
-        edit_slide(slide, model, skip_model_not_found)
+        edit_slide(slide, model, skip_model_not_found, clear_tags)
 
 
-def process_all_slides(slides, ppt, skip_model_not_found=False):
+def process_all_slides(slides, ppt, skip_model_not_found=False, clear_tags=False):
     if isinstance(slides, dict):
         for (slide_id, model) in iteritems(slides):
             slide = get_slide(ppt, slide_id)
             remove_slide_id(ppt, slide_id)
             log.info("Processing slide_id: %s" % slide_id)
-            process_one_slide(ppt, slide, model, skip_model_not_found)
+            process_one_slide(ppt, slide, model, skip_model_not_found, clear_tags)
         remove_all_slides_having_id(ppt)
     elif isinstance(slides, list):
         for (model, slide) in zip(slides, ppt.slides):
-            process_one_slide(ppt, slide, model, skip_model_not_found)
+            process_one_slide(ppt, slide, model, skip_model_not_found, clear_tags)
 
 
 def main():
@@ -43,6 +43,7 @@ def main():
     parser.add_argument('--debug', action='store_true', help='output verbose log')
     parser.add_argument('--skip-model-not-found', action='store_true',
                         help='skip if specified key is not found in the model')
+    parser.add_argument('--clear-tags', action='store_true')
     opts = parser.parse_args()
 
     if not len(log.handlers):
@@ -68,7 +69,7 @@ def main():
 
     log.info(u"Loading template pptx: %s" % opts.template)
     ppt = Presentation(opts.template)
-    process_all_slides(slides, ppt, skip_model_not_found=opts.skip_model_not_found)
+    process_all_slides(slides, ppt, skip_model_not_found=opts.skip_model_not_found, clear_tags=opts.clear_tags)
 
     log.info(u"Writing pptx: %s" % opts.out)
     ppt.save(opts.out)

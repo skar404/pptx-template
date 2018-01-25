@@ -53,12 +53,14 @@ def select_all_tables(slide):
     return [s.table for s in slide.shapes if isinstance(s, GraphicFrame) and s.shape_type == 19]
 
 
-def replace_all_els_in_table(table, model):
+def replace_all_els_in_table(table, model, skip_model_not_found, clear_tags):
     """
      table の各セルの中に EL 形式があれば、それを model の該当する値と置き換える
     """
+
     for cell in [cell for row in table.rows for cell in row.cells]:
-        replace_all_els_in_text_frame(cell.text_frame, model)
+        print('> ', cell.text_frame.text)
+        replace_all_els_in_text_frame(cell.text_frame, model, clear_tags)
 
 
 def replace_el_in_text_frame_with_str(text_frame, el, replacing_text):
@@ -87,23 +89,30 @@ def replace_el_in_text_frame_with_str(text_frame, el, replacing_text):
     return False
 
 
-def replace_all_els_in_text_frame(text_frame, model):
+def replace_all_els_in_text_frame(text_frame, model, clear_tags):
     """
      text_frame 中のテキストに EL 形式が一つ以上あれば、それを model の該当する値と置き換える
     """
     text_id = None
 
     for el in _iterate_els(text_frame.text):
-        value = pyel.eval_el(el, model)
-        if not value:
-            replacing_text = ''
-        elif isinstance(value, numbers.Number):
-            replacing_text = str(value)
-        elif not isinstance(value, string_types):
-            log.error(u"Invalid value for {%s}, model: %s" % (el, value))
-            continue
+        try:
+            value = pyel.eval_el(el, model)
+        except ValueError:
+            replacing_text = ''  # Deleted None tags tags
+            if not clear_tags:
+                raise
+
         else:
-            replacing_text = value
+            if not value:
+                replacing_text = ''
+            elif isinstance(value, numbers.Number):
+                replacing_text = str(value)
+            elif not isinstance(value, string_types):
+                log.error(u"Invalid value for {%s}, model: %s" % (el, value))
+                continue
+            else:
+                replacing_text = value
 
         if not replace_el_in_text_frame_with_str(text_frame, el, replacing_text):
             log.error(
