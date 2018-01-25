@@ -25,3 +25,5 @@ jobs:
           distributions: sdist bdist_wheel
           repo: skar404/pptx-template
           tags: true
+after_success:
+  - coveralls
