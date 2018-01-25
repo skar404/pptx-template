@@ -1,17 +1,19 @@
 language: python
 cache: pip
 python:
-  - "2.7"
-  - "3.4"
-  - "3.5"
-  - "3.6"
-
+- '2.7'
+- '3.4'
+- '3.5'
+- '3.6'
 install:
-  - pip install -r requirements.txt
-  - python setup.py -q install
-
+- pip install -r requirements.txt
+- python setup.py -q install
 script:
-  - pytest
-
+- pytest
 notifications:
   email: false
+deploy:
+  provider: pypi
+  user: skar404
+  password:
+    secure: Fp+R9qnJk30jvW+GP+7214qLtArOipxjQ+wJIXNFuQlEvqIHhE/y4H/dp6sRpJeGzp0XpbkBn5SP72Y3/riQfIaSzE2PQm/MENd1NBmvP9G7pu9xjprJTQprEQTvsxu6c6nnBb+jcVoykH5AqqPPIxPfjmCIT7djsmwsYfoS0H5X6fAcl8PNPnFXCozKBoWZzrRtRoSXs6Mg/zTpDmwW9mjilZ9qcpJdVk+rADVxD/Ty98Db2aOBtfXbpQ0GN2H1AeyRS/fdAEjuTiOvhDSiLq3gbC9B4sdtpkmAh6bLF+ntngDcxvondQkj1m3X9d83VQw9ncm+Q3uXoIhqz5Gwti6ejHKPH2e6ZYFf2CSokQjj8cFQDosM8mE7kmLL3tTKLDwmK+qbOHyqb4EqIAkluhga+v1y/c0DHqo0PhgM/RfTwLyNArMDjQYeOQZso7GjeCazdNync9XZqG3vTuTWInpW9Yo53KLi/qSFpYeITG0Tj62Bw7mDQsrBMLiV0KJBrAGhIRI5O9BNGERVX7zbsV4m1LMTLURkB7uv7Cqvs/PAFlVI2s+/03ZmzMbMHQmmYcULMzbp7AQDqsS90yVeymrXF9J7y4m4d+Vz5RP7J831jyqXVwYav/4zCBPfl19vv36OnaSgFHwenVY+KT7avUNuhUr4EkMVcx4m7pGN3lc=
