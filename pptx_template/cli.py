@@ -5,8 +5,8 @@ import sys
 import logging
 import argparse
 import json
-
 from io import open, TextIOWrapper
+
 from pptx import Presentation
 from six import iteritems
 

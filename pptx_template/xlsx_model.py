@@ -2,14 +2,13 @@
 # coding=utf-8
 
 import re
+import numbers
 import logging
 from io import StringIO
 
 import openpyxl as xl
 from six import moves
 from itertools import islice
-
-import numbers
 
 import pptx_template.pyel as pyel
 

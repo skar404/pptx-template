@@ -1,4 +1,3 @@
-#
 # coding=utf-8
 
 import logging
@@ -6,14 +5,12 @@ import os.path
 import math
 from io import StringIO
 
+import pandas as pd
+import numpy as np
+from six import string_types
 from pptx.shapes.graphfrm import GraphicFrame
 from pptx.chart.data import ChartData, XyChartData
 from pptx.enum.chart import XL_CHART_TYPE as ct
-
-import pandas as pd
-import numpy as np
-
-from six import string_types
 
 import pptx_template.pyel as pyel
 import pptx_template.text as txt

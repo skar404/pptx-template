@@ -1,9 +1,8 @@
 # utilities to access python-pptx's internal structure.
 # coding=utf-8
+import logging
 
 from pptx.chart.axis import ValueAxis
-
-import logging
 
 log = logging.getLogger()
 
