@@ -2,12 +2,56 @@
 # coding=utf-8
 
 import logging
+import copy
 
+import six
 import pptx_template.pptx_util as util
 import pptx_template.text as txt
 import pptx_template.chart as ch
 
 log = logging.getLogger()
+
+
+def _get_blank_slide_layout(pres):
+    layout_items_count = [len(layout.placeholders)
+                          for layout in pres.slide_layouts]
+    min_items = min(layout_items_count)
+    blank_layout_id = layout_items_count.index(min_items)
+    return pres.slide_layouts[blank_layout_id]
+
+
+def move_slide(pres, old_index, new_index):
+    xml_slides = pres.slides._sldIdLst  # pylint: disable=W0212
+    slides = list(xml_slides)
+    xml_slides.remove(slides[old_index])
+    xml_slides.insert(new_index, slides[old_index])
+
+
+def duplicate_slide(pres, index):
+    """
+    Duplicate the slide with the given index in pres.
+    Adds slide to the end of the presentation
+
+    Не знаю как это разотает, но это создает копию слайда
+    """
+
+    source = pres.slides[index]
+    blank_slide_layout = _get_blank_slide_layout(pres)
+
+    dest = pres.slides.add_slide(blank_slide_layout)
+
+    for shape in source.shapes:
+        newel = copy.deepcopy(shape.element)
+        dest.shapes._spTree.insert_element_before(newel, 'p:extLst')
+
+    for key, value in six.iteritems(source.part.rels):
+        # Make sure we don't copy a notesSlide relation as that won't exist
+        if "notesSlide" not in value.reltype:
+            dest.part.rels.add_relationship(value.reltype,
+                                            value._target,
+                                            value.rId)
+
+    move_slide(pres, len(list(pres.slides)) - 1, index)
 
 
 def edit_slide(slide, model, skip_model_not_found=False, clear_tags=False):
