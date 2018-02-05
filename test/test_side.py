@@ -21,8 +21,7 @@ class MyTest(unittest.TestCase):
         os.chdir(BASE_DIR)
 
     def test_create_table(self):
-        os.chdir(os.path.join(BASE_DIR, 'data4'))
-
+        os.chdir(os.path.join(BASE_DIR, 'test', 'data4'))
         ppt = Presentation('in.pptx')
         process_all_slides(
             {
