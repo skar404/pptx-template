@@ -1,6 +1,7 @@
 # core.py - public API
 # coding=utf-8
 
+import re
 import logging
 import copy
 
@@ -10,6 +11,15 @@ import pptx_template.text as txt
 import pptx_template.chart as ch
 
 log = logging.getLogger()
+
+
+def _get_id(text, index):
+    reg = re.search(r"{id:(?P<id_slide>\w+)}", text)
+    if reg:
+        slide_id = reg.group('id_slide')
+        new_id = '{}_{}'.format(slide_id, index)
+        return '{{id:{}}}'.format(new_id), new_id
+    return False, None
 
 
 def _get_blank_slide_layout(pres):
@@ -27,7 +37,7 @@ def move_slide(pres, old_index, new_index):
     xml_slides.insert(new_index, slides[old_index])
 
 
-def duplicate_slide(pres, index):
+def _duplicate_slide(pres, index, count):
     """
     Duplicate the slide with the given index in pres.
     Adds slide to the end of the presentation
@@ -51,7 +61,24 @@ def duplicate_slide(pres, index):
                                             value._target,
                                             value.rId)
 
-    move_slide(pres, len(list(pres.slides)) - 1, index)
+    move_slide(pres, len(list(pres.slides)) - 1, index + 1)
+
+    # Проходим по всем тектовым элементам и переименовываем элементы
+    slide_id = None
+    for shape in txt.select_all_text_shapes(pres.slides[index + 1]):
+        _new_id, name = _get_id(shape.text, count)
+        if _new_id:
+            slide_id = name
+            shape.text = _new_id
+            break
+    return slide_id
+
+
+def duplicate_slides(pres, index, count):
+    slide_id_list = []
+    for i in reversed(range(count)):
+        slide_id_list.append(_duplicate_slide(pres, index, i))
+    return slide_id_list
 
 
 def edit_slide(slide, model, skip_model_not_found=False, clear_tags=False):
