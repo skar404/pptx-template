@@ -46,10 +46,7 @@ def search_first_el(text):
 
 
 def select_all_text_shapes(slide):
-    try:
-        return [s for s in slide.shapes if s.shape_type in [1, 14, 17]]
-    except NotImplementedError:
-        return
+    return [s for s in slide.shapes if s.shape_type in [1, 14, 17]]
 
 
 def select_all_tables(slide):
