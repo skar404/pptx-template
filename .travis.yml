@@ -5,6 +5,7 @@ python:
 - '3.5'
 - '3.6'
 install:
+- pip install marilyn
 - pip install -r requirements.txt
 - python setup.py -q install
 script:
