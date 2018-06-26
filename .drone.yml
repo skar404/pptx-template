@@ -16,7 +16,7 @@ pipeline:
   codecov:
     image: username502/drone-codecov
     token: $${CODECOV_TOKEN}
-    secrets: [CODECOV_TOKEN]
+    secrets: CODECOV_TOKEN
 
   notify:
     image: drillster/drone-email
