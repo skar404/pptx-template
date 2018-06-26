@@ -2,10 +2,10 @@ pipeline:
   build:
     image: python:3.6
     commands:        
-      - pip install -r requirements.txt pytest
+      - pip install -r requirements.txt pytest pytest-cov codecov
       - python setup.py install
-      - pytest
-      - pip install codecov&& codecov -t $${CODECOV_TOKEN}
+      - pytest --cov=./
+      - codecov -t $${CODECOV_TOKEN}
     secrets: [CODECOV_TOKEN]
     
   pypi_publish:
