@@ -14,8 +14,8 @@ pipeline:
       event: tag
   
   codecov:
-    image: robertstettner/drone-codecov
-    token: CODECOV_TOKEN
+    image: username502/drone-codecov
+    token: $${CODECOV_TOKEN}
     secrets: [CODECOV_TOKEN]
 
   notify:
