@@ -16,8 +16,8 @@ pipeline:
   codecov:
     image: username502/drone-codecov
     commands:
-       - echo $${CODECOV_TOKEN}
-    token: ${CODECOV_TOKEN}
+      - echo $${CODECOV_TOKEN}
+    
     secrets: [CODECOV_TOKEN]
     
   notify:
