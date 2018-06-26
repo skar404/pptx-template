@@ -5,19 +5,16 @@ pipeline:
       - pip install -r requirements.txt pytest
       - python setup.py install
       - pytest
-
+      - pip install --user codecov && codecov -t $${CODECOV_TOKEN}
+    secrets: [CODECOV_TOKEN]
+    
   pypi_publish:
     image: username502/drone-pypi:latest
     secrets: [ PYPI_REPOSITORY, PYPI_USERNAME, PYPI_PASSWORD ]
     when:
       branch: master
       event: tag
-  
-  codecov:
-    image: username502/drone-codecov
-    token: ${CODECOV_TOKEN} 
-    secrets: [CODECOV_TOKEN]
-    
+
   notify:
     image: drillster/drone-email
     host: smtp.mailgun.org
