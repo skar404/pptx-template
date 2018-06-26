@@ -12,7 +12,12 @@ pipeline:
     when:
       branch: master
       event: tag
-      
+  
+  codecov:
+    image: robertstettner/drone-codecov
+    token: CODECOV_TOKEN
+    secrets: [CODECOV_TOKEN]
+
   notify:
     image: drillster/drone-email
     host: smtp.mailgun.org
