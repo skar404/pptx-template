@@ -4,10 +4,17 @@ pipeline:
     commands:        
       - pip install -r requirements.txt pytest pytest-cov codecov
       - python setup.py install
+      - pytest
+    secrets: [CODECOV_TOKEN]
+
+  coverage:
+    commands:
+      - pip install -r requirements.txt pytest pytest-cov codecov
+      - python setup.py install
       - pytest --cov=./
       - codecov -t $${CODECOV_TOKEN}
     secrets: [CODECOV_TOKEN]
-    
+
   pypi_publish:
     image: username502/drone-pypi:latest
     secrets: [ PYPI_REPOSITORY, PYPI_USERNAME, PYPI_PASSWORD ]
