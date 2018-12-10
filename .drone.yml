@@ -14,15 +14,3 @@ pipeline:
     when:
       branch: master
       event: tag
-
-  notify:
-    image: drillster/drone-email
-    host: smtp.mailgun.org
-    port: 25
-    username: email_username
-    password: email_password
-    from: drone@mg.guser.ru
-    recipients: [ skar404@gmail.com ]
-    secrets: [ email_username, email_password ]
-    when:
-      status: [ changed, failure ]
