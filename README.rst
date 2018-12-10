@@ -1,7 +1,7 @@
 pptx-template
 
-.. image:: https://travis-ci.org/skar404/pptx-template.svg?branch=master
-    :target: https://travis-ci.org/skar404/pptx-template
+.. image:: https://cloud.drone.io/api/badges/skar404/pptx-template/status.svg
+    :target: https://cloud.drone.io/skar404/pptx-template
 
 ============
 
