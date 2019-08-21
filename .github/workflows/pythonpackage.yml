@@ -24,4 +24,5 @@ jobs:
         python setup.py install
     - name: Test with pytest
       run: |
+        pip install pytest
         pytest
